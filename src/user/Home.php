@@ -29,21 +29,33 @@ class Home {
       case 'extract':
         $response = $this->P_extract();
         break;
+
+      case 'predict':
+        $response = $this->P_predict();
+        break;
       
       case 'factor':
         $response = $this->P_factor();
         break;
-
-      case 'factorpush':
-          $response = $this->postdata();
-      case 'predict':
-        $response = $this->P_predict();
+      
+      case 'markcustomer':
+        $response = $this->P_markcustomer();
         break;
       
       case 'finalize':
         $response = $this->P_final();
         break;
-      
+
+      case 'factorpush':
+        $this->postdata();
+        $response = $this->P_predict();
+        break;
+
+      case 'markcustomerpush':
+        $this->postdata();
+        $response = $this->P_predict();
+        break;
+
       case 'search':
         if (!isset($this->post['uuid'])){return $this->P_home();}
         $response = $this->P_search();
@@ -74,7 +86,7 @@ class Home {
   private function P_predict(){
     $fetcheddata = $this->fetchtablecontent();
     $tablecontent = file_get_contents("pages/tables/predict.hbs");
-    $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'predict table','fetcheddata' => json_encode($fetcheddata)));
+    $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'predict table', 'api_url'=> $this->config['API'], 'fetcheddata' => json_encode($fetcheddata)));
     return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Predict table', 'pagecontent' => $tablecontent));
   }
 
@@ -90,6 +102,13 @@ class Home {
     $tablecontent = file_get_contents("pages/tables/factor.hbs");
     $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'factor table','fetcheddata' => json_encode($fetcheddata)));
     return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Factor table', 'pagecontent' => $tablecontent));
+  }
+
+  private function P_markcustomer(){
+    $fetcheddata = $this->fetchtablecontent();
+    $tablecontent = file_get_contents("pages/tables/markcustomer.hbs");
+    $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'Marked customers table', 'api_url'=> $this->config['API'], 'fetcheddata' => json_encode($fetcheddata)));
+    return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Marked customers table', 'pagecontent' => $tablecontent));
   }
 
   private function P_search(){
@@ -128,7 +147,7 @@ class Home {
   private function fetchtablecontent(){
     if ($this->post['page'] == 'search'){
       $url = $this->config['API'].'/'.$this->post['page'].'?uuid='.$this->post['uuid'];
-    }elseif($this->post['page'] == 'factorpush'){
+    }elseif($this->post['page'] == 'factorpush' || $this->post['page'] == 'markcustomerpush'){
       $url = $this->config['API'].'/predict';
     }
     else{
@@ -162,8 +181,9 @@ class Home {
   private function postdata(){
     if ($this->post['page'] == 'factorpush'){
       $url = $this->config['API'].'/factor';
-    }
-    else{
+    }else if($this->post['page'] == 'markcustomerpush'){
+      $url = $this->config['API'].'/markcustomer';
+    }else{
       $url = $this->config['API'].'/'.$this->post['page'];
     }
     
@@ -180,8 +200,6 @@ class Home {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     
     $results = curl_exec($curl);
-    curl_close($curl);
-
     return True;
   }
   

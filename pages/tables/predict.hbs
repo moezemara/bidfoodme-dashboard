@@ -4,7 +4,6 @@
 <script type="text/javascript">
 
 	function showmodal_factor(uuid, customer_id, item_id){
-		//console.log(row)
 		document.getElementById('page_form_factor').value = 'factorpush';
 		document.getElementById('uuid_form_factor').value = uuid;
 		document.getElementById('customer_id_form_factor').value = customer_id;
@@ -17,6 +16,55 @@
 	function renderfactor(data, type, row, meta){
 		if(type === 'display' && row.customer_id != 'pending' && row.item_id != 'pending'){
 			data = '<a class="btn btn-teal btn-sm" onclick="showmodal_factor(\''+row.uuid+'\',\''+row.customer_id+'\',\''+row.item_id+'\')">' + 'add factor' + '</a>';
+		}else{
+			data = 'NULL';
+		}
+		
+		return data;
+	}
+
+	async function showmodal_markcustomer(uuid, customer_id){
+		
+		const api_url = "{{api_url}}";
+
+		let formData = new FormData();
+		formData.append('uuid', uuid);
+		formData.append('action', 'getinfo');
+
+
+		const response = await fetch(api_url+"/markcustomer",{
+			method: 'POST',
+			body: formData,
+			headers: {
+			"accept": "application/json",
+			"Access-Control-Allow-Origin":"*",
+			"Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"}
+		});
+
+		try{
+			json = await response.json();
+			if(json.success){
+				document.getElementById('email_form_markcustomer').value = json.message.email;
+				document.getElementById('delivery_address_form_markcustomer').value = json.message.delivery_address;
+			}else{
+				document.getElementById('email_form_markcustomer').value = "response error";
+				document.getElementById('delivery_address_form_markcustomer').value = "response error";
+			}
+		}catch(e){
+			document.getElementById('email_form_markcustomer').value = "response error";
+			document.getElementById('delivery_address_form_markcustomer').value = "response error";
+		}
+
+		document.getElementById('page_form_markcustomer').value = 'markcustomerpush';
+		document.getElementById('action_form_markcustomer').value = 'post';
+		document.getElementById('customer_id_form_markcustomer').value = customer_id;
+
+		$("#markcustomerModal").modal('show');
+	}
+
+	function rendermarkcustomer(data, type, row, meta){
+		if(type === 'display' && row.customer_id != 'pending'){
+			data = '<a class="btn btn-teal btn-sm" onclick="showmodal_markcustomer(\''+row.uuid+'\',\''+row.customer_id+'\')">' + 'mark customer' + '</a>';
 		}else{
 			data = 'NULL';
 		}
@@ -62,6 +110,7 @@
                 { "data": "customer_id" },
 				{ "data": "customer_name" },
                 { "data": "item_id" },
+				{ "data": null, "render": rendermarkcustomer},
 				{ "data": null, "render": renderfactor},
                 { "data": "case_count" },
                 { "data": "item_price" },
@@ -95,6 +144,7 @@
 							<th>customer id</th>
 							<th>customer name</th>
 							<th>item id</th>
+							<th>mark customer</th>
 							<th>factor</th>
 							<th>case count</th>
 							<th>item price</th>
@@ -150,6 +200,48 @@
                         <label class="col-sm-3 control-label">factor</label>
                         <div class="col-sm-9">
                             <input type="number" step="any" class="form-control" id="factor_form_factor" name="factor"/>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer" style="margin:0;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="send" type="submit" class="btn btn-success">Save Record</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="markcustomerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="markcustomerModalLabel">Mark customer</h4>
+            </div>
+            <form id="addmarkcustomer" action="/" class="form-horizontal calender" name = "addmarkcustomer" method="post" role="form">
+                <div class="modal-body">
+					<input type="hidden" id="page_form_markcustomer" name="page">
+					<input type="hidden" id="action_form_markcustomer" name="action">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">customer id</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="customer_id_form_markcustomer" name="customer_id">
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-sm-3 control-label">email address</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="email_form_markcustomer" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">delivery address</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="delivery_address_form_markcustomer" name="delivery_address">
                         </div>
                     </div>
                 </div>

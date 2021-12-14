@@ -1,0 +1,98 @@
+<script type="text/javascript">
+
+
+	function renderdelete(data, type, row, meta){
+		if(type === 'display' && row.customer_id){
+			data = '<a class="btn btn-danger btn-sm" onclick="deletecustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
+		}
+		return data;
+	}
+
+	async function deletecustomer(id){
+		
+		let formData = new FormData();
+		formData.append('id', id);
+		formData.append('action', 'delete');
+
+		const api_url = "{{api_url}}";
+
+		const response = await fetch(api_url+"/markcustomer",{
+			method: 'POST',
+			body: formData,
+			headers: {
+			"accept": "application/json",
+			"Access-Control-Allow-Origin":"*",
+			"Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"}
+		});
+
+		{{!-- json = await response.json(); --}}
+		submitPostLink('markcustomer');
+	}
+
+    $(document).ready( function () {
+        var finalTable = $('#markcustomerTable').DataTable({
+            "processing": true,
+            "order": [[ 0, "asc" ]],
+            "data": {{{fetcheddata}}},
+			"scrollX": true,
+			"colReorder": true,
+			"select": true,
+			"dom": 'QBlftip',
+			"buttons": [
+							{
+								extend: 'copy',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'csv',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'pdf',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							},
+							{
+								extend: 'print',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							}
+        				],
+            "columns": [
+                { "data": "id" },
+                { "data": "customer_id"},
+                { "data": "email" },
+                { "data": "delivery_address" },
+				{ "data": null, "render": renderdelete}
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>{{tablename}}</h2>
+				<div class="panel-ctrls">
+				</div>
+			</div>
+			<div class="panel-body panel-no-padding">
+				<table id="markcustomerTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+                            <th>id</th>
+							<th>customer id</th>
+							<th>email</th>
+							<th>delivery address</th>
+							<th>delete customer</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
