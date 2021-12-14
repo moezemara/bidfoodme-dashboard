@@ -1,0 +1,20 @@
+{
+	"description": "REST API",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Mohamed Ezzat",
+			"email": "moezemara@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Src\\Auth\\": "src/auth",
+			"Src\\Auth\\Paths\\": "src/auth/paths",
+			"Src\\User\\": "src/user"
+		}
+	},
+	"require": {
+		"mustache/mustache": "^2.13"
+	}
+}

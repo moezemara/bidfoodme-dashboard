@@ -1,0 +1,206 @@
+
+<script type="text/javascript">
+	const fetcheddata = {{{fetcheddata}}};
+    $(document).ready( function () {
+         document.getElementById('emails').innerHTML = fetcheddata['emails'];
+         document.getElementById('emails_pending').innerHTML = fetcheddata['emails_pending'];
+         document.getElementById('emails_checked').innerHTML = fetcheddata['emails_checked'];
+         document.getElementById('emails_errors').innerHTML = fetcheddata['emails_errors'];
+         document.getElementById('extracts').innerHTML = fetcheddata['extracts'];
+         document.getElementById('extracts_pending').innerHTML = fetcheddata['extracts_pending'];
+         document.getElementById('extracts_checked').innerHTML = fetcheddata['extracts_checked'];
+         document.getElementById('extracts_errors').innerHTML = fetcheddata['extracts_errors'];;
+         document.getElementById('predictions').innerHTML = fetcheddata['predictions'];
+         document.getElementById('predictions_pending').innerHTML = fetcheddata['predictions_pending'];
+         document.getElementById('predictions_checked').innerHTML = fetcheddata['predictions_checked'];
+         document.getElementById('predictions_errors').innerHTML = fetcheddata['predictions_errors'];
+         document.getElementById('final').innerHTML = fetcheddata['final'];
+         document.getElementById('customers').innerHTML = fetcheddata['customers'];
+         document.getElementById('items').innerHTML = fetcheddata['items'];
+         document.getElementById('prices').innerHTML = fetcheddata['prices'];
+    });
+</script>
+
+<div class="tab-content">
+<div class="tab-pane active" id="domshortcuttiles">
+<div class="row">
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-info">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="emails"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                emails
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-orange">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="emails_pending"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                emails_pending
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-success">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="emails_checked"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                emails_checked
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-magenta">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="emails_errors"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                emails_errors
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-midnightblue">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="extracts"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                extracts
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-green">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="extracts_pending"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                extracts_pending
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-brown">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="extracts_checked"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                extracts_checked
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-primary">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="extracts_errors"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                extracts_errors
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-indigo">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="predictions"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                predictions
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-inverse">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="predictions_pending"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                predictions_pending
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-info">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="predictions_checked"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                predictions_checked
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-danger">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="predictions_errors"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                predictions_errors
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-inverse">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="final"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                final
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-success">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="customers"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                customers
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-magenta">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="items"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                items
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="shortcut-tile tile-orange">
+            <div class="tile-body">
+                <div class="pull-left"><i class="fa fa-bar-chart-o"></i></div>
+                <div class="pull-right"><span class="badge"><p id="prices"></p></span></div>
+            </div>
+            <div class="tile-footer">
+                prices
+            </div>
+        </a>
+    </div>
+</div>
+</div>

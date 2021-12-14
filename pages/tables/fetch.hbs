@@ -1,0 +1,92 @@
+<script type="text/javascript">
+
+	function renderlink(data, type, row, meta){
+		if(type === 'display' && data !='empty' ){
+			data = '<a href="' + data + '" target="_blank" rel="noopener noreferrer">' + data + '</a>';
+		}
+		return data;
+	}
+
+	function escapehtml(data, type, row, meta) {
+		return data
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;");
+	}
+
+    $(document).ready( function () {
+        $('#fetchTable').DataTable({
+            "processing": true,
+			"autoWidth": true,
+            "order": [[ 0, "desc" ]],
+            "data": {{{fetcheddata}}},
+			"scrollX": true,
+			"colReorder": true,
+			"select": true,
+			"dom": 'QBlftip',
+			"buttons": [
+							{
+								extend: 'copy',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'csv',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'pdf',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							},
+							{
+								extend: 'print',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							}
+        				],
+            "columns": [
+                { "data": "id" },
+                { "data": "uuid", "render": renderuuid },
+                { "data": "status" },
+                { "data": "subject" },
+				{ "data": "attachments", "render": renderlink},
+                { "data": "_from", "render": escapehtml},
+                { "data": "_to", "render": escapehtml },
+				{ "data": "date" }
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>{{tablename}}</h2>
+				<div class="panel-ctrls">
+				</div>
+			</div>
+			<div class="panel-body panel-no-padding">
+				<table id="fetchTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+                            <th>id</th>
+							<th>uuid</th>
+							<th>Status</th>
+							<th>Subject</th>
+							<th>attachment</th>
+							<th>from</th>
+							<th>to</th>
+							<th>date</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>

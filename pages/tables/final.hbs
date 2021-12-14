@@ -1,0 +1,88 @@
+<script type="text/javascript">
+    $(document).ready( function () {
+        var finalTable = $('#finalTable').DataTable({
+            "processing": true,
+            "order": [[ 0, "desc" ]],
+            "data": {{{fetcheddata}}},
+			"scrollX": true,
+			"colReorder": true,
+			"select": true,
+			"dom": 'QBlftip',
+			"buttons": [
+							{
+								extend: 'copy',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'csv',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'pdf',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							},
+							{
+								extend: 'print',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							}
+        				],
+            "columns": [
+                { "data": "id" },
+                { "data": "uuid", "render": renderuuid},
+                { "data": "ext_so_id" },
+                { "data": "customer_id" },
+				{ "data": "customer_name" },
+                { "data": "lpo_number" },
+                { "data": "lpo" },
+                { "data": "shipping_date"},
+				{ "data": "sales_order_class" },
+                { "data": "order_channel" },
+                { "data": "so_location" },
+                { "data": "tax_code" },
+				{ "data": "htc_code" },
+                { "data": "quantity" },
+                { "data": "units" }
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>{{tablename}}</h2>
+				<div class="panel-ctrls">
+				</div>
+			</div>
+			<div class="panel-body panel-no-padding">
+				<table id="finalTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+                            <th>id</th>
+							<th>uuid</th>
+							<th>ext_so_id</th>
+							<th>customer id</th>
+							<th>customer name</th>
+							<th>lpo number</th>
+							<th>lpo</th>
+							<th>shipping date</th>
+							<th>sales order class</th>
+							<th>order channel</th>
+							<th>so location</th>
+							<th>tax code</th>
+							<th>htc code</th>
+							<th>quantity</th>
+							<th>units</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>

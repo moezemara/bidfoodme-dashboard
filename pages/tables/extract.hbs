@@ -1,0 +1,129 @@
+<script type="text/javascript">
+	const fetcheddata = {{{fetcheddata}}};
+	
+
+	function getNodes(object) {
+		return Object
+			.entries(object)
+			.map(([key, value]) => value && typeof value === 'object'
+				? { text: key, key, children: getNodes(value)}
+				: { text: key, children: [{text: value}]}
+			);
+	}
+
+	function submituuid(uuid){
+		var data = [];
+
+		for (const val of fetcheddata) {
+			if (val['uuid'] == uuid){
+				data = val['message'];
+			}
+		}
+		treedata = getNodes(JSON.parse(data))
+		console.log(data);
+		$('#jstree').jstree("destroy").empty();
+		$("#myModal").modal('show');
+
+		$('#jstree').jstree({
+			core: {
+				data: treedata
+			},
+		});
+	}
+
+	function renderjson(data, type, row, meta){
+		if(type === 'display' && row['status'] != 'empty'){
+			data = '<a class="btn btn-info btn-sm" onclick="submituuid(\''+data+'\')">' + 'View' + '</a>';
+		}else{
+			data = row['status']
+		}
+		return data;
+	}
+
+    $(document).ready( function () {
+
+        $('#extractTable').DataTable({
+            "processing": true,
+            "order": [[ 0, "desc" ]],
+            "data": fetcheddata,
+			"scrollX": true,
+			"colReorder": true,
+			"select": true,
+			"dom": 'QBlftip',
+			"buttons": [
+							{
+								extend: 'copy',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'csv',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'pdf',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							},
+							{
+								extend: 'print',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							}
+        				],
+            "columns": [
+                { "data": "id" },
+                { "data": "uuid", "render": renderuuid },
+                { "data": "status" },
+                { "data": "uuid", "render": renderjson }
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>{{tablename}}</h2>
+				<div class="panel-ctrls">
+				</div>
+			</div>
+			<div class="panel-body panel-no-padding">
+				<table id="extractTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+                            <th>id</th>
+							<th>uuid</th>
+							<th>Status</th>
+							<th>Subject</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h2 class="modal-title">TREE VIEW</h2>
+			</div>
+			<div class="modal-body">
+				<div id="jstree"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

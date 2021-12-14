@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    $(document).ready( function () {
+        var finalTable = $('#factorTable').DataTable({
+            "processing": true,
+            "order": [[ 0, "asc" ]],
+            "data": {{{fetcheddata}}},
+			"scrollX": true,
+			"colReorder": true,
+			"select": true,
+			"dom": 'QBlftip',
+			"buttons": [
+							{
+								extend: 'copy',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'csv',
+								exportOptions: { orthogonal: 'export' }
+							},
+							{
+								extend: 'pdf',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							},
+							{
+								extend: 'print',
+								exportOptions: { orthogonal: 'export' },
+								orientation: 'landscape',
+								pageSize: 'LEGAL'
+							}
+        				],
+            "columns": [
+                { "data": "id" },
+                { "data": "item_id"},
+                { "data": "customer_id" },
+                { "data": "factor" }
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>{{tablename}}</h2>
+				<div class="panel-ctrls">
+				</div>
+			</div>
+			<div class="panel-body panel-no-padding">
+				<table id="factorTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+                            <th>id</th>
+							<th>item id</th>
+							<th>customer id</th>
+							<th>factor</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
