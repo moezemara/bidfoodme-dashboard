@@ -207,7 +207,9 @@ class Home {
     $this->post['page'] = 'stats';
     $fetcheddata = $this->fetchtablecontent();
     $cardcontent = file_get_contents("pages/cards/stats.hbs");
-    $cardcontent = $this->mustache->render($cardcontent, array('fetcheddata' => json_encode($fetcheddata)));
-    return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Welcome', 'pagecontent' => $cardcontent));
+    $settingscontent = file_get_contents("pages/cards/settings.hbs");
+    $pagecontent = $cardcontent."\n".$settingscontent;
+    $pagecontent = $this->mustache->render($pagecontent, array('api_url' => $this->config['API'], 'fetcheddata' => json_encode($fetcheddata)));
+    return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Welcome', 'pagecontent' => $pagecontent));
   }
 }
