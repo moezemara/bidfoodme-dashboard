@@ -121,7 +121,7 @@ class Home {
 
     $tablecontent_fetch = $this->mustache->render($tablecontent_fetch, array('tablename' => 'fetch table','fetcheddata' => json_encode($fetcheddata->emails)));
     $tablecontent_extract = $this->mustache->render($tablecontent_extract, array('tablename' => 'extract table','fetcheddata' => json_encode($fetcheddata->extracts)));
-    $tablecontent_predict = $this->mustache->render($tablecontent_predict, array('tablename' => 'predict table','fetcheddata' => json_encode($fetcheddata->predictions)));
+    $tablecontent_predict = $this->mustache->render($tablecontent_predict, array('tablename' => 'predict table','api_url'=> $this->config['API'],'fetcheddata' => json_encode($fetcheddata->predictions)));
     $tablecontent_final = $this->mustache->render($tablecontent_final, array('tablename' => 'final table','fetcheddata' => json_encode($fetcheddata->final)));
 
     $pagecontent = $tablecontent_fetch.$tablecontent_extract.$tablecontent_predict.$tablecontent_final;
