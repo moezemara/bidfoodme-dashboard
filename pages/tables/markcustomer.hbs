@@ -62,9 +62,11 @@
         				],
             "columns": [
                 { "data": "id" },
-                { "data": "customer_id"},
                 { "data": "email" },
+				{ "data": "customer_id"},
                 { "data": "delivery_address" },
+				{ "data": "email_subject" },
+				{ "data": "sender_name" },
 				{ "data": null, "render": renderdelete}
             ]
         });
@@ -84,9 +86,11 @@
 					<thead>
 						<tr>
                             <th>id</th>
-							<th>customer id</th>
 							<th>email</th>
+							<th>customer id</th>
 							<th>delivery address</th>
+							<th>email subject</th>
+							<th>sender name</th>
 							<th>delete customer</th>
 						</tr>
 					</thead>

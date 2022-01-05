@@ -45,14 +45,20 @@
 			json = await response.json();
 			if(json.success){
 				document.getElementById('email_form_markcustomer').value = json.message.email;
-				document.getElementById('delivery_address_form_markcustomer').value = json.message.delivery_address;
+				document.getElementById('delivery_address_form_markcustomer').value = "empty";
+				document.getElementById('email_subject_form_markcustomer').value = "empty";
+				document.getElementById('sender_name_form_markcustomer').value = "empty";
 			}else{
 				document.getElementById('email_form_markcustomer').value = "response error";
 				document.getElementById('delivery_address_form_markcustomer').value = "response error";
+				document.getElementById('email_subject_form_markcustomer').value = "response error";
+				document.getElementById('sender_name_form_markcustomer').value = "response error";
 			}
 		}catch(e){
 			document.getElementById('email_form_markcustomer').value = "response error";
 			document.getElementById('delivery_address_form_markcustomer').value = "response error";
+			document.getElementById('email_subject_form_markcustomer').value = "response error";
+			document.getElementById('sender_name_form_markcustomer').value = "response error";
 		}
 
 		document.getElementById('page_form_markcustomer').value = 'markcustomerpush';
@@ -242,6 +248,18 @@
                         <label class="col-sm-3 control-label">delivery address</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="delivery_address_form_markcustomer" name="delivery_address">
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-sm-3 control-label">email subject</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="email_subject_form_markcustomer" name="email_subject">
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-sm-3 control-label">sender name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sender_name_form_markcustomer" name="sender_name">
                         </div>
                     </div>
                 </div>
