@@ -14,7 +14,7 @@
 	}
 
 	function renderfactor(data, type, row, meta){
-		if(type === 'display'){
+		if(type === 'display' && row.customer_id != 'pending' && row.item_id != 'pending'){
 			data = '<a class="btn btn-teal btn-sm" onclick="showmodal_factor(\''+row.uuid+'\',\''+row.customer_id+'\',\''+row.item_id+'\')">' + 'add factor' + '</a>';
 		}else{
 			data = 'NULL';
