@@ -42,6 +42,10 @@ class Home {
         $response = $this->P_markcustomer();
         break;
       
+      case 'ignorecustomer':
+        $response = $this->P_ignorecustomer();
+        break;
+      
       case 'finalize':
         $response = $this->P_final();
         break;
@@ -109,6 +113,13 @@ class Home {
     $tablecontent = file_get_contents("pages/tables/markcustomer.hbs");
     $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'Marked customers table', 'api_url'=> $this->config['API'], 'fetcheddata' => json_encode($fetcheddata)));
     return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Marked customers table', 'pagecontent' => $tablecontent));
+  }
+
+  private function P_ignorecustomer(){
+    $fetcheddata = $this->fetchtablecontent();
+    $tablecontent = file_get_contents("pages/tables/ignorecustomer.hbs");
+    $tablecontent = $this->mustache->render($tablecontent, array('tablename' => 'Ignored customers table', 'api_url'=> $this->config['API'], 'fetcheddata' => json_encode($fetcheddata)));
+    return $this->mustache->render($this->template, array('username' => $this->username, 'pagename' => 'Ignored customers table', 'pagecontent' => $tablecontent));
   }
 
   private function P_search(){

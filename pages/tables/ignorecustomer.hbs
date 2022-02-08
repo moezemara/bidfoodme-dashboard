@@ -3,7 +3,7 @@
 
 	function renderdelete(data, type, row, meta){
 		if(type === 'display' && row.customer_id){
-			data = '<a class="btn btn-danger btn-sm" onclick="deletecustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
+			data = '<a class="btn btn-danger btn-sm" onclick="deleteignoredcustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
 		}
 		return data;
 	}
@@ -16,7 +16,7 @@
 
 		const api_url = "{{api_url}}";
 
-		const response = await fetch(api_url+"/markcustomer",{
+		const response = await fetch(api_url+"/ignorecustomer",{
 			method: 'POST',
 			body: formData,
 			headers: {
@@ -26,11 +26,11 @@
 		});
 
 		{{!-- json = await response.json(); --}}
-		submitPostLink('markcustomer');
+		submitPostLink('ignorecustomer');
 	}
 
     $(document).ready( function () {
-        var finalTable = $('#markcustomerTable').DataTable({
+        var finalTable = $('#ignorecustomerTable').DataTable({
             "processing": true,
             "order": [[ 0, "asc" ]],
             "data": {{{fetcheddata}}},
@@ -63,11 +63,6 @@
             "columns": [
                 { "data": "id" },
                 { "data": "email" },
-				{ "data": "customer_id"},
-                { "data": "delivery_address" },
-				{ "data": "email_subject" },
-				{ "data": "sender_name" },
-				{ "data": "customer_name" },
 				{ "data": null, "render": renderdelete}
             ]
         });
@@ -83,16 +78,11 @@
 				</div>
 			</div>
 			<div class="panel-body panel-no-padding">
-				<table id="markcustomerTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<table id="deletecustomerTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 					<thead>
 						<tr>
                             <th>id</th>
 							<th>email</th>
-							<th>customer id</th>
-							<th>delivery address</th>
-							<th>email subject</th>
-							<th>sender name</th>
-							<th>customer name</th>
 							<th>delete customer</th>
 						</tr>
 					</thead>
