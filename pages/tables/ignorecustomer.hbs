@@ -3,7 +3,7 @@
 
 	function renderdelete(data, type, row, meta){
 		if(type === 'display' && row.customer_id){
-			data = '<a class="btn btn-danger btn-sm" onclick="deleteignoredcustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
+			data = '<a class="btn btn-danger btn-sm" onclick="deletecustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
 		}
 		return data;
 	}
