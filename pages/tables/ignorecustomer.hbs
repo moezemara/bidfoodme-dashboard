@@ -30,7 +30,7 @@
 	}
 
     $(document).ready( function () {
-        var finalTable = $('#ignorecustomerTable').DataTable({
+        var ignorecustomerTable = $('#ignorecustomerTable').DataTable({
             "processing": true,
             "order": [[ 0, "asc" ]],
             "data": {{{fetcheddata}}},
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 			<div class="panel-body panel-no-padding">
-				<table id="deletecustomerTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<table id="ignorecustomerTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 					<thead>
 						<tr>
                             <th>id</th>
