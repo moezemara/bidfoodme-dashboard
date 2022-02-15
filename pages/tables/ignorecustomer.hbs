@@ -2,7 +2,7 @@
 
 
 	function renderdelete(data, type, row, meta){
-		if(type === 'display' && row.customer_id){
+		if(type === 'display'){
 			data = '<a class="btn btn-danger btn-sm" onclick="deletecustomer(\''+row.id+'\')">' + 'Delete' + '</a>';
 		}
 		return data;
@@ -25,7 +25,27 @@
 			"Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"}
 		});
 
-		{{!-- json = await response.json(); --}}
+		submitPostLink('ignorecustomer');
+	}
+
+
+	async function addcustomer(id){
+		
+		let formData = new FormData();
+		formData.append('email', document.getElementById('addcustomer_input').value);
+		formData.append('action', 'post');
+
+		const api_url = "{{api_url}}";
+
+		const response = await fetch(api_url+"/ignorecustomer",{
+			method: 'POST',
+			body: formData,
+			headers: {
+			"accept": "application/json",
+			"Access-Control-Allow-Origin":"*",
+			"Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"}
+		});
+
 		submitPostLink('ignorecustomer');
 	}
 
@@ -68,6 +88,28 @@
         });
     });
 </script>
+
+    <div class="panel panel-default">
+		<div class="panel-body">
+
+			<div class="row">						
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
+                            <form class="form-inline">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="addcustomer_input" placeholder="Customer">
+                            </div>
+                            <button type="button" class="btn btn-success mb-2" onclick="addcustomer();">Add Customer</button>
+                            </form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 
 <div class="row">
 	<div class="col-md-12">
